@@ -62,15 +62,19 @@ public class My_Notepad extends JFrame implements ActionListener{
         //Menu items for edit
         JMenuItem copy = new JMenuItem("Copy");
         copy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+        copy.addActionListener(this);
 
         JMenuItem paste = new JMenuItem("Paste");
         paste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+        paste.addActionListener(this);
 
         JMenuItem cut = new JMenuItem("Cut");
         cut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+        paste.addActionListener(this);
 
         JMenuItem selectAll = new JMenuItem("Select All");
         selectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+        selectAll.addActionListener(this);
 
         //Add menu-items to edit menu
         edit.add(copy);
@@ -98,8 +102,10 @@ public class My_Notepad extends JFrame implements ActionListener{
         help.setFont(new Font("Times new roman", Font.BOLD, 16));
 
         //Menu items for edit
-        JMenuItem helpItem = new JMenuItem("Help");
+        JMenuItem helpItem = new JMenuItem("About");
         helpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
+        helpItem.addActionListener(this);
+
 
         //Add menu-items to help menu
         help.add(helpItem);
@@ -131,8 +137,9 @@ public class My_Notepad extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        JTextArea textArea = getCurrentTextArea(); // Use helper method
         switch (command) {
-            //File Menu items
+            //File Menu items.
             case "New tab":
                 addNewTab();
                 break;
@@ -148,15 +155,15 @@ public class My_Notepad extends JFrame implements ActionListener{
                     File selectedFile = fileChooser.getSelectedFile();
                     try {
                         BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
-                        JTextArea textArea = new JTextArea();
-                        textArea.setFont(new Font("San_Serif", Font.PLAIN, 18));
-                        textArea.setLineWrap(true);
+                        JTextArea newTextArea = new JTextArea();
+                        newTextArea.setFont(new Font("San_Serif", Font.PLAIN, 18));
+                        newTextArea.setLineWrap(true);
                         String line;
                         while ((line = reader.readLine()) != null) {
-                            textArea.append(line + "\n");
+                            newTextArea.append(line + "\n");
                         }
                         reader.close();
-                        JScrollPane scrollPane = new JScrollPane(textArea);
+                        JScrollPane scrollPane = new JScrollPane(newTextArea);
                         tabbedPane.addTab(selectedFile.getName(), scrollPane);
                         tabbedPane.setSelectedComponent(scrollPane); // Focus on the new tab
                     } catch (Exception ex) {
@@ -173,7 +180,6 @@ public class My_Notepad extends JFrame implements ActionListener{
                 result = saver.showSaveDialog(this);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File saveFile = new File(saver.getSelectedFile().getAbsolutePath() + ".txt");
-                    JTextArea textArea = getCurrentTextArea(); // Use helper method
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile))) {
                         textArea.write(writer); // Use JTextArea's write method
                     } catch (IOException ex) {
@@ -185,7 +191,6 @@ public class My_Notepad extends JFrame implements ActionListener{
                 break;
 
             case "Print":
-                JTextArea textArea = getCurrentTextArea(); // Use helper method
                 try {
                     boolean done = textArea.print();
                     if (done) {
@@ -201,16 +206,37 @@ public class My_Notepad extends JFrame implements ActionListener{
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
+
             case "Exit":
                 System.exit(0); // Used to exit any running program
                 break;
 
             //Edit Menu items.
             case "Copy":
+                textArea.copy(); // Copy selected text to clipboard
+                break;
+
+            case "Paste":
+                textArea.paste(); // Paste text from clipboard
+                break;
+
+            case "Cut":
+                textArea.cut(); // Cut selected text to clipboard
+                break;
+
+            case "Select All":
+                textArea.selectAll(); // Select all text
+                break;
+
+            //Help Menu items.
+            case "About":
+                new Help_About();
+                break;
         }
     }
 
-    //Function to get current text area info
+
+    //Function to get current text area info helper method
     private JTextArea getCurrentTextArea() {
         JScrollPane scrollPane = (JScrollPane) tabbedPane.getSelectedComponent();
         JViewport viewport = scrollPane.getViewport();
