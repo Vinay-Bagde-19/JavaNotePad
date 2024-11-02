@@ -8,13 +8,19 @@ public class Help_About  extends JFrame implements ActionListener{
     Help_About() {
         this.setBounds(400, 100, 650, 570);
         this.setLayout(null);
+        this.setTitle("Vinay Bagde's JavaNotePad");
+
+        ImageIcon windowIcon = new ImageIcon("C:\\Users\\Asus\\Desktop\\COURSES\\JAVA\\Projects\\Swing Projects" +
+                "\\Notepad Clone\\icons\\Help.png");
+
+        this.setIconImage(windowIcon.getImage());
 
         ImageIcon banner = new ImageIcon("C:\\Users\\Asus\\Desktop\\COURSES\\JAVA\\Projects\\Swing Projects\\" +
-                "Notepad Clone\\icons\\windows.png");
-        Image image = banner.getImage().getScaledInstance(300, 60, Image.SCALE_DEFAULT); // Resizing the image
+                "Notepad Clone\\icons\\banner.jpg");
+        Image image = banner.getImage().getScaledInstance(300, 80, Image.SCALE_DEFAULT); // Resizing the image
         ImageIcon finalBanner = new ImageIcon(image); // Store it in another ImageIcon instance and then use.
         JLabel headerIcon = new JLabel(finalBanner);
-        headerIcon.setBounds(150, 30, 300, 60); // Set the bounds for the JLabel
+        headerIcon.setBounds(150, 30, 300, 80); // Set the bounds for the JLabel
 
         JLabel content = new JLabel("<html><h1>JavaNotePad: Your Ultimate Java Notepad</h1>"
                 + "<h2>Build By Vinay Bagde</h2>"
@@ -41,10 +47,12 @@ public class Help_About  extends JFrame implements ActionListener{
         JButton button = new JButton("Close");
         button.setBounds(420, 475, 120, 30);
         button.setFocusable(false);
+        button.setBackground(new Color(0xE43232));
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Arial", Font.BOLD, 18));
         button.addActionListener(this);
+
         this.add(button);
-
-
         this.add(headerIcon);
         this.add(content);
         this.setVisible(true);

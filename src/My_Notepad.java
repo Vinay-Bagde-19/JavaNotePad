@@ -70,7 +70,7 @@ public class My_Notepad extends JFrame implements ActionListener{
 
         JMenuItem cut = new JMenuItem("Cut");
         cut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
-        paste.addActionListener(this);
+        cut.addActionListener(this);
 
         JMenuItem selectAll = new JMenuItem("Select All");
         selectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
@@ -88,10 +88,12 @@ public class My_Notepad extends JFrame implements ActionListener{
 
         //Menu items for view
         JMenuItem zoomIn = new JMenuItem("Zoom in");
-        zoomIn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, ActionEvent.CTRL_MASK));
+        zoomIn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, ActionEvent.CTRL_MASK));
+        zoomIn.addActionListener(this);
 
         JMenuItem zoomOut = new JMenuItem("Zoom out");
-        zoomOut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK));
+        zoomOut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, ActionEvent.CTRL_MASK));
+        zoomOut.addActionListener(this);
 
         //Add menu-items to view menu
         view.add(zoomIn);
@@ -232,6 +234,20 @@ public class My_Notepad extends JFrame implements ActionListener{
             case "About":
                 new Help_About();
                 break;
+
+            //View Menu items.
+            case "Zoom in":
+                Font inFont = textArea.getFont();
+                int fontSize1 = inFont.getSize();
+                textArea.setFont(new Font("San_Serif", Font.PLAIN, fontSize1 + 2));
+                break;
+
+            case "Zoom out":
+                Font outFont = textArea.getFont();
+                int fontSize2 = outFont.getSize();
+                textArea.setFont(new Font("San_Serif", Font.PLAIN, fontSize2 - 2));
+                break;
+
         }
     }
 
