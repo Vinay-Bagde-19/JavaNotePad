@@ -3,16 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Help_About  extends JFrame implements ActionListener{
+public class Help_About extends JDialog implements ActionListener {
 
-    Help_About() {
+    Help_About(JFrame parent) {
+        super(parent, "Vinay Bagde's JavaNotePad", true); // Set modal to true
         this.setBounds(400, 100, 650, 570);
         this.setLayout(null);
-        this.setTitle("Vinay Bagde's JavaNotePad");
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        this.toFront();
 
         ImageIcon windowIcon = new ImageIcon("C:\\Users\\Asus\\Desktop\\COURSES\\JAVA\\Projects\\Swing Projects" +
                 "\\Notepad Clone\\icons\\Help.png");
-
         this.setIconImage(windowIcon.getImage());
 
         ImageIcon banner = new ImageIcon("C:\\Users\\Asus\\Desktop\\COURSES\\JAVA\\Projects\\Swing Projects\\" +
@@ -58,13 +59,8 @@ public class Help_About  extends JFrame implements ActionListener{
         this.setVisible(true);
     }
 
-
-//    public static void main(String[] args) {
-//        new Help_About();
-//    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();// Close the window
+        dispose(); // Close the window
     }
 }

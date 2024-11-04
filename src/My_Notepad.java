@@ -232,7 +232,7 @@ public class My_Notepad extends JFrame implements ActionListener{
 
             //Help Menu items.
             case "About":
-                new Help_About();
+                new Help_About(this).setVisible(true); // Pass the main frame as the parent
                 break;
 
             //View Menu items.
