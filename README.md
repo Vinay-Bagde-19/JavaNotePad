@@ -25,6 +25,17 @@ JavaNotePad is an intuitive, feature-rich notepad application built with Java Sw
 
 3. Compile and run the My_Notepad class.
 
+### Running the Application 
+You can also run the application directly from the JAR file.
+
+1. Download the JAR file from the "releases" folder.
+
+2. Open a terminal or command prompt and navigate to the folder containing the JAR file.
+
+3. Run the following command:
+   ```bash
+   java -jar My_Notepad.jar
+
 ## Usage
 
 **New Tab**: Create a new tab for editing.
